@@ -23,11 +23,13 @@ add_library(${PROJECT_NAME} ${WTOOLS_SRC})
 # Check vulkan version
 
 # Lib directories
-link_directories(${PROJECT_SOURCE_DIR}/lib)
+# link_directories(${PROJECT_SOURCE_DIR}/lib)
 
 # Includes
 target_include_directories(${PROJECT_NAME}
-  PUBLIC ${PROJECT_SOURCE_DIR}/src
+
+  # PUBLIC ${PROJECT_SOURCE_DIR}/src
+  PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
 
 # Linking
