@@ -45,29 +45,25 @@ struct std::formatter<WtMessageType, char> {
     }
 };
 
-// struct WtMessage {
-//     const char *message;
-//     WtMessageType type;
-//     bool visible;
-//     bool logged;
-
-//     WtMessage(const char *message, WtMessageType type, bool visible = true, bool logged = true);
-// };
-
 class WtLogger {
   public:
-    void log(const char *message);
-    void message(const char *message);
-    void error(const char *message);
-    void warning(const char *message);
+    const char *m_pLogFilePath;
+    bool m_bLogToFile = true;
+    bool m_bShowTime = true;
+    bool m_bVisible = true;
+    void log(const char *pMessage);
+    void message(const char *pMessage);
+    void error(const char *pMessage);
+    void warning(const char *pMessage);
+    void consoleOutput(const char *pMessage);
 
   private:
     /*
-    "visible = true" means that message will be visible in console
+    "bVisible = true" means that message will be visible in console
 
-    "log = true" means that message will be logged into log file
+    "bLogToFile = true" means that message will be logged into log file
     */
-    void _write(const char *message, WtMessageType type, const char *logFilePath, bool visible, bool log);
+    void _write(const char *pMessage, WtMessageType sMessageType, const char *pLogFilePath, bool bVisible, bool bLogToFile, bool bShowTime);
 };
 
 #endif // W1LTOFF_WTOOLS_LOG_HPP
