@@ -2,7 +2,6 @@
 #define W1LTOFF_WTOOLS_LOG_HPP
 
 enum class WtMessageType {
-    UNDEFINED,
     ERROR,
     ALERT,
     WARNING,
@@ -10,14 +9,19 @@ enum class WtMessageType {
     MESSAGE,
     LOG,
     DEBUG,
+    UNDEFINED,
 };
 
 struct WtMessage {
     const char *message;
     WtMessageType type;
-    bool visible = true;
+    bool visible;
 
     WtMessage(const char *message, WtMessageType type, bool visible = true);
+};
+
+template <typename Derived>
+class WtOutput {
 };
 
 #endif // W1LTOFF_WTOOLS_LOG_HPP
