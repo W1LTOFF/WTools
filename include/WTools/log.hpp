@@ -50,14 +50,21 @@ class WtLogger {
     const char *m_pLogFilePath;
     bool m_bLogToFile = true;
     bool m_bShowTime = true;
-    bool m_bVisible = true;
-    void log(const char *pMessage);
-    void message(const char *pMessage);
-    void error(const char *pMessage);
-    void warning(const char *pMessage);
+
+    /*
+    default value "m_pLogFilePath"
+    */
+    void log(const char *pMessage, const char *pLogFilePath = nullptr);
+    void message(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    void error(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    void warning(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    void debug(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
     void consoleOutput(const char *pMessage);
 
   private:
+    inline bool needToLog(const char *pLogFilePath);
+    inline const char *determinePath(const char *pLogFilePath);
+
     /*
     "bVisible = true" means that message will be visible in console
 
