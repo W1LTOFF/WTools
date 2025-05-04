@@ -15,11 +15,22 @@ class WtFile {
     // void close();
 
     void write(const char *pContent);
+    static void write(const char *pContent, const char *pFilePath);
+
     void writeln(const char *pContent);
+    static void writeln(const char *pContent, const char *pFilePath);
+
     void append(const char *pContent);
+    static void append(const char *pContent, const char *pFilePath);
+
     void appendln(const char *pContent);
+    static void appendln(const char *pContent, const char *pFilePath);
+
     void clear();
+    static void clear(const char *pFilePath);
+
     std::string read(bool bForceRead = false);
+    static std::string read(const char *pFilePath);
 
     void create();
 

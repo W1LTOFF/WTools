@@ -2,7 +2,6 @@
 #include <format>
 #include <fstream>
 #include <ios>
-#include <optional>
 #include <print>
 
 WtFile::WtFile(const char *pFilePath) {
@@ -30,13 +29,33 @@ std::string WtFile::read(bool bForceRead) {
     return m_ostrFileContent.value();
 }
 
+// ? static
+std::string WtFile::read(const char *pFilePath) {
+    std::stringstream strBuffer;
+    std::ifstream sFileR(pFilePath, std::ios::in);
+    strBuffer << sFileR.rdbuf();
+    return strBuffer.str();
+}
+
 void WtFile::write(const char *pContent) {
     std::ofstream sFileWT(m_sFilePath, std::ios::trunc);
     m_ostrFileContent = pContent;
     sFileWT << pContent;
 }
+
+// ? static
+void WtFile::write(const char *pContent, const char *pFilePath) {
+    std::ofstream sFileWT(pFilePath, std::ios::trunc);
+    sFileWT << pContent;
+}
+
 void WtFile::writeln(const char *pContent) {
     write(std::format("{}\n", pContent).c_str());
+}
+
+// ? static
+void WtFile::writeln(const char *pContent, const char *pFilePath) {
+    WtFile::write(std::format("{}\n", pContent).c_str(), pFilePath);
 }
 
 void WtFile::append(const char *pContent) {
@@ -44,12 +63,29 @@ void WtFile::append(const char *pContent) {
     m_ostrFileContent = std::format("{}{}", m_ostrFileContent.has_value() ? m_ostrFileContent.value() : "", pContent);
     sFileWA << pContent;
 }
+
+// ? static
+void WtFile::append(const char *pContent, const char *pFilePath) {
+    std::ofstream sFileWA(pFilePath, std::ios::app);
+    sFileWA << pContent;
+}
+
 void WtFile::appendln(const char *pContent) {
     append(std::format("{}\n", pContent).c_str());
 }
 
+// ? static
+void WtFile::appendln(const char *pContent, const char *pFilePath) {
+    WtFile::append(std::format("{}\n", pContent).c_str(), pFilePath);
+}
+
 void WtFile::clear() {
     write("");
+}
+
+// ? static
+void WtFile::clear(const char *pFilePath) {
+    write("", pFilePath);
 }
 
 // void WtFile::open() {

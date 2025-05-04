@@ -54,10 +54,12 @@ class WtLogger {
     /*
     default value "m_pLogFilePath"
     */
-    void log(const char *pMessage, const char *pLogFilePath = nullptr);
-    void message(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
     void error(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    void alert(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
     void warning(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    void info(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    void message(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    void log(const char *pMessage, const char *pLogFilePath = nullptr);
     void debug(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
     void consoleOutput(const char *pMessage);
 

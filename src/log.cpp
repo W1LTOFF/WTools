@@ -1,4 +1,5 @@
 #include "WTools/log.hpp"
+#include "WTools/file.hpp"
 #include <cstring>
 #include <ctime>
 #include <format>
@@ -12,13 +13,19 @@ void WtLogger::_write(const char *pMessage, WtMessageType sMessageType, const ch
 
     std::string strCurrentTime = std::format("{:0>2}:{:0>2}:{:0>2}", sNow.tm_hour, sNow.tm_min, sNow.tm_sec);
 
+    std::string message = std::format("{} {} ({})\n", std::format("[{}]:", sMessageType), pMessage, strCurrentTime);
+
     if (bVisible) {
         // std::print("{:<12} {} ({:0>2}:{:0>2}:{:0>2})\n", std::format("[{}]:", sMessageType), pMessage, sNow.tm_hour, sNow.tm_min, sNow.tm_sec);
-        std::print("{} {} ({})\n", std::format("[{}]:", sMessageType), pMessage, strCurrentTime);
+        // std::print("{} {} ({})\n", std::format("[{}]:", sMessageType), pMessage, strCurrentTime);
+        std::print("{}", message);
     }
 
     if (bLogToFile) {
-        std::print("__log__ {} {} ({})\n", std::format("[{}]:", sMessageType), pMessage, strCurrentTime);
+        WtFile sLogFile(pLogFilePath);
+
+        sLogFile.append(message.c_str());
+        // std::print("{} {} ({})\n", std::format("[{}]:", sMessageType), pMessage, strCurrentTime);
     }
 }
 
@@ -49,6 +56,20 @@ void WtLogger::error(const char *pMessage, const char *pLogFilePath, bool bVisib
     bool bLogToFile = needToLog(pLogFilePath);
 
     _write(pMessage, WtMessageType::ERROR, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+}
+
+void WtLogger::info(const char *pMessage, const char *pLogFilePath, bool bVisible) {
+    pLogFilePath = determinePath(pLogFilePath);
+    bool bLogToFile = needToLog(pLogFilePath);
+
+    _write(pMessage, WtMessageType::INFO, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+}
+
+void WtLogger::alert(const char *pMessage, const char *pLogFilePath, bool bVisible) {
+    pLogFilePath = determinePath(pLogFilePath);
+    bool bLogToFile = needToLog(pLogFilePath);
+
+    _write(pMessage, WtMessageType::ALERT, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
 }
 
 void WtLogger::warning(const char *pMessage, const char *pLogFilePath, bool bVisible) {
