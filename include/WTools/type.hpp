@@ -1,5 +1,5 @@
-#ifndef W1LTOFF_WTOOLS_TYPES_HPP
-#define W1LTOFF_WTOOLS_TYPES_HPP
+#ifndef W1LTOFF_WTOOLS_TYPE_HPP
+#define W1LTOFF_WTOOLS_TYPE_HPP
 
 #include <cstdint>
 
@@ -13,4 +13,4 @@ typedef int16_t i16;
 typedef int32_t i32;
 typedef int64_t i64;
 
-#endif // W1LTOFF_WTOOLS_TYPES_HPP
+#endif // W1LTOFF_WTOOLS_TYPE_HPP
