@@ -1,5 +1,6 @@
 #include "WTools/log.hpp"
 #include "WTools/file.hpp"
+#include "WTools/type.hpp"
 #include <cstring>
 #include <ctime>
 #include <format>
@@ -37,55 +38,80 @@ inline const char *WtLogger::determinePath(const char *pLogFilePath) {
     return pLogFilePath ? pLogFilePath : m_pLogFilePath;
 }
 
-void WtLogger::log(const char *pMessage, const char *pLogFilePath) {
+WtResult WtLogger::log(const char *pMessage, const char *pLogFilePath) {
     pLogFilePath = determinePath(pLogFilePath);
     bool bLogToFile = needToLog(pLogFilePath);
+    WtMessageType sMessageType = WtMessageType::LOG;
+    WtResult sResult = WtResult::OK;
 
-    _write(pMessage, WtMessageType::LOG, pLogFilePath, false, true, m_bShowTime);
+    _write(pMessage, sMessageType, pLogFilePath, false, true, m_bShowTime);
+    return sResult;
 }
 
-void WtLogger::message(const char *pMessage, const char *pLogFilePath, bool bVisible) {
+WtResult WtLogger::message(const char *pMessage, const char *pLogFilePath, bool bVisible) {
     pLogFilePath = determinePath(pLogFilePath);
     bool bLogToFile = needToLog(pLogFilePath);
+    WtMessageType sMessageType = WtMessageType::MESSAGE;
+    WtResult sResult = WtResult::OK;
 
-    _write(pMessage, WtMessageType::MESSAGE, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    _write(pMessage, sMessageType, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    return sResult;
 }
 
-void WtLogger::error(const char *pMessage, const char *pLogFilePath, bool bVisible) {
+WtResult WtLogger::error(const char *pMessage, const char *pLogFilePath, bool bVisible) {
     pLogFilePath = determinePath(pLogFilePath);
     bool bLogToFile = needToLog(pLogFilePath);
+    WtMessageType sMessageType = WtMessageType::ERROR;
+    WtResult sResult = WtResult::ERROR;
 
-    _write(pMessage, WtMessageType::ERROR, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    _write(pMessage, sMessageType, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    return sResult;
 }
 
-void WtLogger::info(const char *pMessage, const char *pLogFilePath, bool bVisible) {
+WtResult WtLogger::info(const char *pMessage, const char *pLogFilePath, bool bVisible) {
     pLogFilePath = determinePath(pLogFilePath);
     bool bLogToFile = needToLog(pLogFilePath);
+    WtMessageType sMessageType = WtMessageType::INFO;
+    WtResult sResult = WtResult::OK;
 
-    _write(pMessage, WtMessageType::INFO, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    _write(pMessage, sMessageType, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    return sResult;
 }
 
-void WtLogger::alert(const char *pMessage, const char *pLogFilePath, bool bVisible) {
+WtResult WtLogger::alert(const char *pMessage, const char *pLogFilePath, bool bVisible) {
     pLogFilePath = determinePath(pLogFilePath);
     bool bLogToFile = needToLog(pLogFilePath);
+    WtMessageType sMessageType = WtMessageType::ALERT;
+    WtResult sResult = WtResult::WARNING;
 
-    _write(pMessage, WtMessageType::ALERT, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    _write(pMessage, sMessageType, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    return sResult;
 }
 
-void WtLogger::warning(const char *pMessage, const char *pLogFilePath, bool bVisible) {
+WtResult WtLogger::warning(const char *pMessage, const char *pLogFilePath, bool bVisible) {
     pLogFilePath = determinePath(pLogFilePath);
     bool bLogToFile = needToLog(pLogFilePath);
+    WtMessageType sMessageType = WtMessageType::WARNING;
+    WtResult sResult = WtResult::WARNING;
 
-    _write(pMessage, WtMessageType::WARNING, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    _write(pMessage, sMessageType, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    return sResult;
 }
 
-void WtLogger::debug(const char *pMessage, const char *pLogFilePath, bool bVisible) {
+WtResult WtLogger::debug(const char *pMessage, const char *pLogFilePath, bool bVisible) {
     pLogFilePath = determinePath(pLogFilePath);
     bool bLogToFile = needToLog(pLogFilePath);
+    WtMessageType sMessageType = WtMessageType::WARNING;
+    WtResult sResult = WtResult::WARNING;
 
-    _write(pMessage, WtMessageType::WARNING, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    _write(pMessage, sMessageType, pLogFilePath, bVisible, bLogToFile, m_bShowTime);
+    return sResult;
 }
 
-void WtLogger::consoleOutput(const char *pMessage) {
-    _write(pMessage, WtMessageType::MESSAGE, nullptr, true, false, m_bShowTime);
+WtResult WtLogger::consoleOutput(const char *pMessage) {
+    WtMessageType sMessageType = WtMessageType::MESSAGE;
+    WtResult sResult = WtResult::OK;
+
+    _write(pMessage, sMessageType, nullptr, true, false, m_bShowTime);
+    return sResult;
 }

@@ -1,6 +1,7 @@
 #ifndef W1LTOFF_WTOOLS_LOG_HPP
 #define W1LTOFF_WTOOLS_LOG_HPP
 
+#include "WTools/type.hpp"
 #include <format>
 #include <print>
 
@@ -54,14 +55,14 @@ class WtLogger {
     /*
     default value "m_pLogFilePath"
     */
-    void error(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
-    void alert(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
-    void warning(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
-    void info(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
-    void message(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
-    void log(const char *pMessage, const char *pLogFilePath = nullptr);
-    void debug(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
-    void consoleOutput(const char *pMessage);
+    WtResult error(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    WtResult alert(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    WtResult warning(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    WtResult info(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    WtResult message(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    WtResult log(const char *pMessage, const char *pLogFilePath = nullptr);
+    WtResult debug(const char *pMessage, const char *pLogFilePath = nullptr, bool bVisible = true);
+    WtResult consoleOutput(const char *pMessage);
 
   private:
     inline bool needToLog(const char *pLogFilePath);
